@@ -105,26 +105,26 @@
 
 ### 5.1 前端核心文件
 
-- [App.tsx](C:/Users/chenwankang/Desktop/新建文件夹%20(15)/corentin-bernadou-portfolio-clone/src/App.tsx)
+- `src/App.tsx`
   站点主页面、文章展示、管理员交互和请求逻辑的核心文件。
 
-- [index.html](C:/Users/chenwankang/Desktop/新建文件夹%20(15)/corentin-bernadou-portfolio-clone/index.html)
+- `index.html`
   页面 HTML 模板与浏览器标题入口。
 
 ### 5.2 后端核心文件
 
-- [index.mjs](C:/Users/chenwankang/Desktop/新建文件夹%20(15)/corentin-bernadou-portfolio-clone/server/index.mjs)
+- `server/index.mjs`
   后端主服务文件，包含登录、鉴权、文章接口、数据库连接和静态资源托管。
 
 ### 5.3 配置文件
 
-- [package.json](C:/Users/chenwankang/Desktop/新建文件夹%20(15)/corentin-bernadou-portfolio-clone/package.json)
+- `package.json`
   项目依赖与脚本命令。
 
-- [.env.server.example](C:/Users/chenwankang/Desktop/新建文件夹%20(15)/corentin-bernadou-portfolio-clone/.env.server.example)
+- `.env.server.example`
   后端环境变量示例。
 
-- [vite.config.ts](C:/Users/chenwankang/Desktop/新建文件夹%20(15)/corentin-bernadou-portfolio-clone/vite.config.ts)
+- `vite.config.ts`
   Vite 构建配置。
 
 ## 6. 前端说明
@@ -136,8 +136,6 @@
 - 更强调视觉氛围
 - 更强调交互记忆点
 - 更强调文章与展示的结合
-
-页面中的文章列表、视觉内容和交互效果一起构成整个首页体验。
 
 ### 6.2 文章详情
 
@@ -159,86 +157,43 @@
 - 编辑已有文章
 - 删除文章
 
-目前前端通过本地保存登录 token，再调用后端接口完成管理动作。
-
 ## 7. 后端接口说明
 
 ### 7.1 健康检查
 
 - `GET /api/health`
 
-用于确认后端服务是否在线。
-
 ### 7.2 登录接口
 
 - `POST /api/auth/login`
-
-作用：
-
-- 管理员登录
-- 登录成功后返回 token 和用户信息
 
 ### 7.3 当前用户接口
 
 - `GET /api/auth/me`
 
-作用：
-
-- 前端通过 token 获取当前登录用户信息
-
 ### 7.4 文章列表接口
 
 - `GET /api/articles`
-
-作用：
-
-- 获取全部文章
-- 按创建时间倒序返回
 
 ### 7.5 创建文章接口
 
 - `POST /api/articles`
 
-作用：
-
-- 新建文章
-- 需要管理员 token
-
 ### 7.6 编辑文章接口
 
 - `PATCH /api/articles/:id`
-
-作用：
-
-- 修改指定文章
-- 需要管理员 token
 
 ### 7.7 删除文章接口
 
 - `DELETE /api/articles/:id`
 
-作用：
-
-- 删除指定文章
-- 需要管理员 token
-
 ## 8. 数据库结构
 
-当前数据库为 PostgreSQL。
-
-数据库名：
-
-- `portfolio_db`
-
-核心表如下。
+当前数据库为 PostgreSQL，数据库名为 `portfolio_db`。
 
 ### 8.1 users
 
-作用：
-
-- 保存后台用户信息
-
-主要字段：
+用于保存后台用户信息，主要字段：
 
 - `id`
 - `email`
@@ -249,11 +204,7 @@
 
 ### 8.2 articles
 
-作用：
-
-- 保存文章内容
-
-主要字段：
+用于保存文章内容，主要字段：
 
 - `id`
 - `title`
@@ -267,12 +218,6 @@
 - `created_at`
 - `updated_at`
 
-说明：
-
-- `cover_image` 用于保存文章封面
-- `content_images` 用于保存正文配图列表
-- `author_id` 关联作者信息
-
 ## 9. 当前部署结构
 
 当前线上请求链路如下：
@@ -280,17 +225,10 @@
 1. 用户访问 `aiwom.cc.cd`
 2. 请求先到 Cloudflare
 3. Cloudflare 将请求转发到服务器
-4. 服务器上的 OpenResty 根据域名匹配站点
+4. OpenResty 根据域名匹配站点
 5. OpenResty 将请求代理到本机 Node 服务 `127.0.0.1:8318`
 6. Node 服务处理页面或 API 请求
-7. 涉及文章数据时，Node 再访问 PostgreSQL
-
-可以理解为：
-
-- Cloudflare 是入口层
-- OpenResty 是代理层
-- Node 是应用层
-- PostgreSQL 是数据层
+7. Node 访问 PostgreSQL 获取文章数据
 
 ## 10. 已完成的改造
 
@@ -307,7 +245,7 @@
 
 ### 11.1 默认账号安全
 
-当前项目仍保留默认管理员环境变量示例，因此正式环境应尽快处理：
+正式环境建议尽快处理：
 
 - 修改默认管理员密码
 - 修改默认 JWT 密钥
@@ -321,47 +259,21 @@
 - MinIO
 - R2
 
-这样更适合长期使用。
-
 ### 11.3 历史 Firebase 文件
 
 仓库内仍保留部分 Firebase 相关配置文件，主要是历史遗留。当前线上主链路已经不是 Firebase 直连模式。
 
 ## 12. 常用维护动作
 
-### 12.1 前端重新构建
-
 ```bash
 npm run build
-```
-
-### 12.2 启动开发前端
-
-```bash
 npm run dev
-```
-
-### 12.3 启动后端
-
-```bash
 npm run server
-```
-
-### 12.4 开发模式启动后端
-
-```bash
 npm run server:dev
-```
-
-### 12.5 类型检查
-
-```bash
 npm run lint
 ```
 
 ## 13. 后续建议
-
-建议下一步逐步做这些优化：
 
 - 修改默认管理员账号和密码
 - 清理不再使用的旧配置
