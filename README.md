@@ -276,4 +276,4 @@ npm run lint
 
 ## License
 
-如需开源发布，可根据你的需要补充 MIT、Apache-2.0 或自定义许可说明。
+ MIT
