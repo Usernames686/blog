@@ -1,5 +1,5 @@
 # china·陈
-
+https://aiwom.cc.cd
 一个自托管的个人博客 / 作品展示站项目，前端使用 React + Vite，后端使用 Express + PostgreSQL，支持文章展示、后台登录和文章管理。
 
 ## 项目简介
